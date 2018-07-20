@@ -2,4 +2,4 @@
 .lagoon.yml
 docker-compose.yml
 vendor
-web/sites/default/files
+web/sites/MYSITENAME/files

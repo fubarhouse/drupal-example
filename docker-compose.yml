@@ -2,7 +2,7 @@ version: '2.3'
 
 x-lagoon-project:
   # Lagoon project name (leave `&lagoon-project` when you edit this)
-  &lagoon-project drupal-example
+  &lagoon-project MYSITENAME
 
 x-volumes:
   &default-volumes
@@ -14,11 +14,11 @@ x-environment:
   &default-environment
     LAGOON_PROJECT: *lagoon-project
     # Route that should be used locally, if you are using pygmy, this route *must* end with .docker.amazee.io
-    LAGOON_ROUTE: http://drupal-example.docker.amazee.io
+    LAGOON_ROUTE: http://MYSITENAME.docker.amazee.io
     # Uncomment if you like to have the system behave like in production
     #LAGOON_ENVIRONMENT_TYPE: production
     # Uncomment to enable xdebug and then restart via `docker-compose up -d`
-    #XDEBUG_ENABLE: "true"
+    XDEBUG_ENABLE: "true"
 
 x-user:
   &default-user
@@ -36,7 +36,7 @@ services:
       # Lagoon Labels
       lagoon.type: cli-persistent
       lagoon.persistent.name: nginx # mount the persistent storage of nginx into this container
-      lagoon.persistent: /app/web/sites/default/files/ # location where the persistent storage should be mounted
+      lagoon.persistent: /app/docroot/sites/MYSITENAME/files/ # location where the persistent storage should be mounted
     << : *default-volumes # loads the defined volumes from the top
     << : *default-user # uses the defined user from top
     volumes_from: # mount the ssh-agent from the pygmy or cachalot ssh-agent
@@ -52,14 +52,14 @@ services:
         CLI_IMAGE: *lagoon-project # Inject the name of the cli image
     labels:
       lagoon.type: nginx-php-persistent
-      lagoon.persistent: /app/web/sites/default/files/ # define where the persistent storage should be mounted too
+      lagoon.persistent: /app/docroot/sites/MYSITENAME/files/ # define where the persistent storage should be mounted too
     << : *default-volumes # loads the defined volumes from the top
     << : *default-user # uses the defined user from top
     depends_on:
       - cli # basically just tells docker-compose to build the cli first
     environment:
       << : *default-environment # loads the defined environment variables from the top
-      LAGOON_LOCALDEV_URL: nginx-drupal-example.docker.amazee.io # generate another route for nginx, by default we go to varnish
+      LAGOON_LOCALDEV_URL: MYSITENAME.docker.amazee.io # generate another route for nginx, by default we go to varnish
     networks:
       - amazeeio-network
       - default
