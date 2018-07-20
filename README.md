@@ -13,13 +13,14 @@ Every time you need this, clone it into a new folder for the purposes of namespa
   3. `cd shortname`
   4. Find and replace all instances of `MYSITENAME` and change it to your `shortname' in `.lagoon.yml`, `docker-compose.yml` and `.dockerignore.yml`
   5. Load in your drush alias files into the drush folder.
-  6. Run the following:
-    ```sh
-    $ composer install
-    $ pygmy start
-    $ docker-compose up
-    ```
+  6. Run the commands listed below.
   7. You will be responsible for syncronising files and databases inside of the containers, you can find more about that process on the [drush commands website](https://drushcommands.com/).
+
+```sh
+$ composer install
+$ pygmy start
+$ docker-compose up
+```
 
 ## Finishing
 
