@@ -27,6 +27,7 @@ $ docker-compose up
 ```sh
 $ docker-compose down
 $ docker-compose rm
+$ pymgy down
 ```
 
 ## Notes
